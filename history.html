@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>History</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+        }
+
+        .box {
+            background-color: white;
+            width: 30%;
+            margin-bottom: 2rem;
+        }
+
+        .box>img {
+            width: 100%;
+        }
+
+        .container {
+            display: flex;
+            justify-content: space-between;
+            width: 80%;
+            flex-wrap: wrap;
+            margin: 0 auto;
+            gap: 1rem;
+        }
+
+        input {
+            background: url("path/to/Vector.png") no-repeat 42rem center;
+            /* 경로를 실제 경로로 변경하세요 */
+            background-color: #d5d5d5;
+            border: none;
+            width: 50%;
+            margin: 0 auto;
+            padding: 1rem;
+            margin-top: 2rem;
+            margin-bottom: 2rem;
+            position: relative;
+            left: 25%;
+        }
+
+        .introImg {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+        }
+
+        .box>div,
+        h2 {
+            padding: 0 20px;
+            margin-bottom: 1rem;
+        }
+
+        .box div {
+            color: #565656;
+        }
+
+
+        .box div span {
+            font-weight: 600;
+        }
+
+        h2 {
+            font-size: 27px;
+        }
+
+        .all {
+            background-color: #2c2c2c;
+        }
+        .date{
+            margin-top: 0.5em;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="main-content">
+        <div id="navbar"></div>
+        <main>
+            <div id="app" class="all">
+                <div style="background-color: #2c2c2c;">
+                    <img class="introImg" src="./images/Group 191.png" alt="소개 화면"> <!-- 경로를 실제 경로로 변경하세요 -->
+                </div>
+                <div class="main">
+                    <input type="text" id="searchTerm" placeholder="검색어를 입력해주세요">
+                    <div class="container" id="historyContainer"></div>
+                </div>
+            </div>
+        </main>
+        <div id="footer"></div>
+    </div>
+
+    <script>
+        const dummyHistoryData = [
+            {
+                img: "images/Rectangle 169.png", // 경로를 실제 경로로 변경하세요
+                date: "2024.07.12",
+                place: "경기도 양주시 소재 나라찬 효 태권도",
+                title: "양주 태권도 아동 사망 사건",
+                type: "살인 및 학대",
+                victim: "5세 남아 1명",
+                content: "태권도장에서 관장이 5세 남자아이를 학대해 심정지 상태로 만들어 11일 만에 숨지게 한 사건",
+            },
+            {
+                img: "images/history/Rectangle 100.png", // 경로를 실제 경로로 변경하세요
+                date: "2024.07.01",
+                place: "서울특별시 중구 세종대로18길",
+                title: "시청역 교차로 참사",
+                type: "교통사고",
+                victim: "9명 사망, 7명 부상",
+                content: "차량이 역주행 도중 인도로 돌진해 다수의 보행자와 차량을 치면서 발생한 사건",
+            },
+            {
+                img: "images/history/Rectangle 101.png", // 경로를 실제 경로로 변경하세요
+                date: "2024.08.03",
+                place: "교통사고",
+                title: "서현역 칼부림",
+                type: "묻지마 범죄 (칼부림 및 차량 돌진)",
+                victim: "2명 사망, 12명 부상",
+                content: "      차량을 인도를 향해 돌진시켜 사상자를 낸 뒤주변 행인에게 흉기 난동을 부린 사건",
+            },
+            {
+                img: "images/history/Rectangle 102.png", // 경로를 실제 경로로 변경하세요
+                date: "2023.07.19",
+                place: "경상북도 예천군 호명읍 황지리 내성천 보문교 일대",
+                title: "해병대 제1사단 사망 사고",
+                type: "익사",
+                victim: "채수근 상병 사망",
+                content: " 2023년 한반도 폭우 사태 지역인 경상북도 일대에서 실종자 수색 작전 중 급류에 휩쓸려 실종되었다가 14시간 만에 사망한 채 발견된 사고이다.",
+            },
+            {
+                img: "images/history/Rectangle 103.png", // 경로를 실제 경로로 변경하세요
+                date: "2023.07.18",
+                place: " 서울서이초등학교 교보재 준비실",
+                title: "서이초 교사 사망 사건",
+                type: "살인 및 학대",
+                victim: "24세 서이초 교사 ",
+                content: "반 아이들 지도 문제, 학생들 간 발생한 사건 관련 학부모 간 중재, 나이스 업무 스트레스 등으로 인한 심리적취약성 극대화해 스스로 목숨을 끊은 사건",
+            }, {
+                img: "images/history/Rectangle 104.png", // 경로를 실제 경로로 변경하세요
+                date: "2022.10.29",
+                place: "서울특별시 용산구 이태원로 이태원 세계음식거리",
+                title: "이태원 압사 사고",
+                type: " 다중밀집사고",
+                victim: "159명 사망, 195명 부상",
+                content: "할로윈 축제로 수많은 인파가 몰린 와중에 발생한 압사 사고",
+            },
+            {
+                img: "images/history/Rectangle 105.png", // 경로를 실제 경로로 변경하세요
+                date: "2022.01.11",
+                place: "광주 화정 아이파크 2단지 공사 현장",
+                title: "광주 아이파크 붕괴 사고",
+                type: "건물 붕괴",
+                victim: "6명 사망, 1명 부상",
+                content: " HDC현대산업개발이 공사 중이던 광주 화정 아이파크2단지 201동의 23~38층 대부분이 붕괴한 사고",
+            }, {
+                img: "images/history/Rectangle 106.png", // 경로를 실제 경로로 변경하세요
+                date: "2022.09.22",
+                place: "인천광역시 옹진군 소연평도 인근",
+                title: "서해 공무원 피살 사건",
+                type: "총격 사건",
+                victim: "  40대 공무원 이대준씨 사망",
+                content: "  연평도 인근 해역에서 실종되어, 실종 지점에서 북서쪽으로 38km 떨어진 북방한계선 이북의 북한 황해남도 강령군 등산곶 해안에서 조선인민군의 총격에 숨진 사건",
+            }, {
+                img: "images/history/Rectangle 107.png", // 경로를 실제 경로로 변경하세요
+                date: "2014.04.16",
+                place: "전라남도 진도군 조도면 동거차도리 인근 맹골수도 해상",
+                title: "세월호 침몰 사고",
+                type: "침몰",
+                victim: " 299명 사망, 5명 실종, 172명 구조",
+                content: "제주로 오가던 세월호가 해상에서 확증이 불가능한 원인으로 침몰하면서 발생한 대한민국의 해상사고",
+            },
+            // ... 다른 데이터 항목들
+        ];
+
+        document.addEventListener("DOMContentLoaded", () => {
+            const searchTermInput = document.getElementById("searchTerm");
+            const historyContainer = document.getElementById("historyContainer");
+
+            const renderData = (data) => {
+                historyContainer.innerHTML = '';
+                data.forEach(item => {
+                    const box = document.createElement('div');
+                    box.className = 'box';
+                    box.innerHTML = `
+                        <img src="${item.img || 'path/to/defaultImg.png'}" alt="${item.title}">
+                        <div class="date">${item.date}</div>
+                        <h2>${item.title}</h2>
+                        <div><span>장소 </span>${item.place}</div>
+                        <div><span>유형 </span>${item.type}</div>
+                        <div><span>피해자 </span>${item.victim}</div>
+                        <div><span>내용 </span>${item.content}</div>
+                    `;
+                    historyContainer.appendChild(box);
+                });
+            };
+
+            searchTermInput.addEventListener('input', () => {
+                const searchTerm = searchTermInput.value.toLowerCase();
+                const filteredData = dummyHistoryData.filter(item => item.title.toLowerCase().includes(searchTerm));
+                renderData(filteredData);
+            });
+
+            renderData(dummyHistoryData);
+        });
+
+    </script>
+    <script src="navbar.js" type="module"></script>
+    <script src="navbar.js" type="module"></script>
+    <script src="footer.js" type="module"></script>
+    <script type="module">
+        import { createNavbar } from './navbar.js';
+        import { createFooter } from './footer.js';
+
+        createNavbar();
+        createFooter();
+    </script>
+</body>
+
+</html>

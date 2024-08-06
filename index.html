@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Website</title>
+    <style> 
+        html, body {
+            height: 100%;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .main-content {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh; 
+        }
+
+        main {
+            flex: 1; 
+        }
+    </style>
+</head>
+<body>
+    <div class="main-content">
+        <div id="navbar"></div>
+        <main>
+            
+        </main>
+        <div id="footer"></div>
+    </div>
+
+    <script src="navbar.js" type="module"></script>
+    <script src="footer.js" type="module"></script>
+    <script type="module">
+        import { createNavbar } from './navbar.js';
+        import { createFooter } from './footer.js';
+
+        createNavbar();
+        createFooter();
+    </script>
+</body>
+</html>

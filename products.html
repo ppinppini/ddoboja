@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>게시판</title>
+    <style>
+        /* General Styling */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #1c1c1c;
+            color: white;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* App Layout */
+        .app {
+            width: 70%;
+            margin: 0 auto;
+            padding: 20px;
+            flex: 1;
+        }
+
+        /* Header Section */
+        .header {
+            background-color: #2c2c2c;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            position: relative;
+            flex-direction: column;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+
+        .profile-container {
+            display: flex;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .profile-picture img {
+            width: 50px;
+            height: 50px;
+            object-fit: cover;
+            margin-right: 10px;
+        }
+
+        .profile-info {
+            color: #ffffff;
+        }
+
+        .profile-info div {
+            margin-bottom: 5px;
+        }
+
+        /* Comment Box Section */
+        .comment-box {
+            background-color: #2c2c2c;
+            padding: 20px;
+            margin-bottom: 20px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .comment-box input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            background-color: #3c3c3c;
+            color: white;
+            box-sizing: border-box;
+        }
+
+        .file-upload {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .file-upload label.upload-button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #444;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+
+        .file-upload label.upload-button:hover {
+            background-color: #666;
+        }
+
+        .file-upload input[type="file"] {
+            display: none;
+        }
+
+        .file-upload .selected-image {
+            max-width: 100%;
+            max-height: 200px;
+            object-fit: contain;
+            margin-top: 10px;
+        }
+
+        .submit-button {
+            padding: 10px 20px;
+            background-color: #444;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+        }
+
+        .submit-button:hover {
+            background-color: #666;
+        }
+
+        /* Post Section */
+        .post-list {
+            margin-top: 20px;
+        }
+
+        .post {
+            background-color: #2c2c2c;
+            padding: 20px;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .post-header {
+            display: flex;
+            align-items: center;
+        }
+
+        .post-header .profile-img {
+            height: 50px;
+            width: 50px;
+            margin-right: 10px;
+        }
+
+        .post-profile-info h2 {
+            margin: 0;
+            font-size: 20px;
+        }
+
+        .post-profile-info .post-date {
+            color: #bbbbbb;
+        }
+
+        .post-content {
+            margin-top: 10px;
+        }
+
+        .post-content img {
+            max-width: 100%;
+            max-height: 200px;
+            object-fit: contain;
+            margin-bottom: 10px;
+        }
+
+        .post-options {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+        }
+
+        .post-options .dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 20px;
+            right: 0;
+            background-color: #333;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .post-options .dropdown-menu button {
+            background: none;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            width: 100%;
+            text-align: left;
+            cursor: pointer;
+        }
+
+        .post-options .dropdown-menu button:hover {
+            background-color: #444;
+        }
+
+        .comments {
+            margin-top: 20px;
+        }
+
+        .comment {
+            background-color: #444;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+
+        .comment-header {
+            display: flex;
+            align-items: center;
+        }
+
+        .comment-header .profile-img {
+            height: 30px;
+            width: 30px;
+            margin-right: 10px;
+        }
+
+        .comment-profile-info h2 {
+            margin: 0;
+            font-size: 16px;
+        }
+
+        .comment-profile-info .comment-date {
+            color: #bbbbbb;
+        }
+
+        .add-comment {
+            display: flex;
+            align-items: center;
+            margin-top: 10px;
+        }
+
+        .add-comment input[type="text"] {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            background-color: #3c3c3c;
+            color: white;
+            margin-right: 10px;
+        }
+
+        .add-comment button {
+            padding: 10px 20px;
+            background-color: #444;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+
+        .add-comment button:hover {
+            background-color: #666;
+        }
+
+        /* Footer Styling */
+        .footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #2c2c2c;
+            padding: 10px 20px;
+            color: #ffffff;
+            font-family: Arial, sans-serif;
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            box-sizing: border-box;
+            margin-top: auto;
+        }
+
+        .footer-left {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .footer-logo {
+            width: 80px;
+            margin-bottom: 5px;
+        }
+
+        .footer-right {
+            display: flex;
+            gap: 15px;
+        }
+
+        .footer-right a {
+            color: #ffffff;
+            text-decoration: none;
+            margin-left: 15px;
+        }
+
+        .footer-right a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+    <header id="navbar" class="header">
+        <h1>게시판</h1>
+        <div class="profile-container" id="profileContainer">
+            <!-- 프로필 정보가 여기에 표시됩니다 -->
+        </div>
+    </header>
+
+    <main class="app">
+        <!-- 투두 작성 영역 -->
+        <div class="comment-box">
+            <input 
+                type="text" 
+                id="todoText"
+                placeholder="박을지님을 추모하는 다채로운 기억들을 기록해보세요." 
+            />
+            <div class="file-upload">
+                <input 
+                    type="file" 
+                    accept="image/*" 
+                    id="image-upload" 
+                    class="image-upload"
+                    onchange="handleImageChange(event)" 
+                />
+                <label for="image-upload" class="upload-button">사진 선택</label>
+                <img id="selected-image" class="selected-image" />
+            </div>
+            <button class="submit-button" id="submitTodo">등록</button>
+        </div>
+
+        <!-- Todo 리스트를 표시할 영역 -->
+        <div id="todoList" class="post-list">
+            <!-- Todo 아이템이 여기에 추가됩니다 -->
+        </div>
+    </main>
+
+    <footer id="footer" class="footer"></footer>
+
+    <script src="navbar.js" type="module"></script>
+    <script src="footer.js" type="module"></script>
+    <script type="module">
+        import { createNavbar } from './navbar.js';
+        import { createFooter } from './footer.js';
+
+        createNavbar();
+        createFooter();
+    </script>
+    <script>
+        // Function to handle image change and preview
+        function handleImageChange(event) {
+            const file = event.target.files[0];
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                document.getElementById('selected-image').src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+
+        // Todo 기능
+        document.getElementById('submitTodo').addEventListener('click', function () {
+            const todoText = document.getElementById('todoText').value;
+            const todoImageUrl = document.getElementById('selected-image').src;
+            const userProfileImage = 'https://via.placeholder.com/50';
+            const userName = '사용자 이름';
+            const createdAt = new Date().toISOString();
+
+            if (todoText.trim() === '' && todoImageUrl === '') return; // 내용과 이미지가 모두 비어있는 경우
+
+            // Todo 항목을 표시할 HTML 생성
+            const todoItem = document.createElement('div');
+            todoItem.classList.add('post');
+            todoItem.innerHTML = `
+                <div class="post-header">
+                    <div class="profile-img">
+                        <img src="${userProfileImage}" alt="프로필 이미지">
+                    </div>
+                    <div class="post-profile-info">
+                        <h2>${userName}</h2>
+                        <div class="post-date">${new Date(createdAt).toLocaleDateString()}</div>
+                    </div>
+                    <div class="post-options">
+                        <div class="dropdown-menu">
+                            <button class="edit-btn">수정</button>
+                            <button class="delete-btn">삭제</button>
+                        </div>
+                        <span class="options-icon">...</span>
+                    </div>
+                </div>
+                <div class="post-content">
+                    ${todoImageUrl ? `<img src="${todoImageUrl}" alt="투두 이미지">` : ''}
+                    <p>${todoText}</p>
+                </div>
+                <div class="add-comment">
+                    <input type="text" class="commentText" placeholder="댓글을 작성하세요...">
+                    <button class="addCommentBtn">등록</button>
+                </div>
+                <div class="comments">
+                    <!-- 댓글이 여기에 추가됩니다 -->
+                </div>
+            `;
+            document.getElementById('todoList').appendChild(todoItem);
+
+            // 옵션 아이콘 클릭 시 드롭다운 메뉴 토글
+            const optionsIcon = todoItem.querySelector('.options-icon');
+            const dropdownMenu = todoItem.querySelector('.dropdown-menu');
+
+            optionsIcon.addEventListener('click', () => {
+                dropdownMenu.style.display = dropdownMenu.style.display === 'none' || dropdownMenu.style.display === '' ? 'block' : 'none';
+            });
+
+            // 수정 버튼 클릭 시
+            todoItem.querySelector('.edit-btn').addEventListener('click', function () {
+                const newText = prompt('수정할 내용을 입력하세요:', todoText);
+                if (newText !== null) {
+                    todoItem.querySelector('.post-content p').textContent = newText;
+                    todoText = newText;
+                }
+            });
+
+            // 삭제 버튼 클릭 시
+            todoItem.querySelector('.delete-btn').addEventListener('click', function () {
+                if (confirm('정말로 삭제하시겠습니까?')) {
+                    todoItem.remove();
+                }
+            });
+
+            // 댓글 추가 기능
+            todoItem.querySelector('.addCommentBtn').addEventListener('click', function () {
+                const commentText = todoItem.querySelector('.commentText').value;
+                if (commentText.trim() === '') return; // Empty input check
+
+                const commentContainer = todoItem.querySelector('.comments');
+                const comment = document.createElement('div');
+                comment.classList.add('comment');
+                comment.innerHTML = `<strong>${userName}</strong>: ${commentText}`;
+                commentContainer.appendChild(comment);
+
+                // Clear the comment input
+                todoItem.querySelector('.commentText').value = '';
+            });
+
+            // Clear the todo input and image
+            document.getElementById('todoText').value = '';
+            document.getElementById('selected-image').src = '';
+        });
+
+        // 프로필 정보 업데이트
+        document.addEventListener("DOMContentLoaded", () => {
+            const profileContainer = document.getElementById('profileContainer');
+            const userProfile = JSON.parse(localStorage.getItem('userProfile'));
+
+            if (userProfile) {
+                profileContainer.innerHTML = `
+                    <div class="profile-picture">
+                        <img src="${userProfile.imageUrl || 'default_profile_pic_url.jpg'}" alt="프로필 이미지">
+                    </div>
+                    <div class="profile-info">
+                        <div><strong>이름:</strong> ${userProfile.name || '이름 없음'}</div>
+                        <div><strong>생년월일:</strong> ${userProfile.birth || '생년월일 없음'}</div>
+                        <div><strong>기일:</strong> ${userProfile.deadDate || '기일 없음'}</div>
+                        <div><strong>소개글:</strong> ${userProfile.comment || '소개글 없음'}</div>
+                    </div>
+                `;
+            }
+        });
+    </script>
+</body>
+
+</html>

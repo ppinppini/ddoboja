@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        .imgBox {
+            width: 100%;
+            margin: 0;
+            height: 100%;
+        }
+
+        .imgBox img {
+            margin: 0;
+
+            height: 100%;
+        }
+
+        html {
+            background-color: #2C2C2C;
+        }
+
+        .carousel_main {
+            width: 1440px;
+            position: relative;
+            overflow: hidden;
+            margin: 0 auto;
+            user-select: none;
+        }
+
+        .carousel_wrapper {
+            display: flex;
+            transition: transform 1s;
+        }
+
+        .carousel_slide {
+            flex: 0 0 100%;
+            position: relative;
+        }
+
+        .carousel_slide img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .carousel_button_container {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+        }
+
+        .carousel_button {
+            width: 50px;
+            height: 50px;
+            color: #fff;
+            background: transparent;
+            border: none;
+            outline: none;
+            cursor: pointer;
+        }
+
+        .carousel_prev {
+            background-color: rgba(0, 0, 0, 0.3);
+            border: 0px;
+            padding-top: 5px;
+            padding-bottom: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            margin-left: 4rem;
+        }
+
+        .carousel_next {
+            background-color: rgba(0, 0, 0, 0.3);
+            border: 0px;
+            padding-top: 5px;
+            padding-bottom: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            margin-right: 4rem;
+        }
+
+        .carousel_pagination {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+        }
+
+        .carousel_circle {
+            width: 10px;
+            height: 10px;
+            background-color: rgba(0, 0, 0, 0.7);
+            border-radius: 50%;
+            margin: 0 5px;
+            cursor: pointer;
+            margin-bottom: 3rem;
+        }
+
+        .carousel_circle.active {
+            background-color: #aaa;
+        }
+        .btn{
+            margin-right: 2rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="main-content">
+        <div id="navbar"></div>
+        <main>
+            <div class="carousel_main">
+                <div class="carousel_wrapper">
+                    <div class="carousel_slide">
+                        <img src="./images/carousel/carousel1.png" alt="doyeon0430 이미지" />
+                    </div>
+                    <div class="carousel_slide">
+                        <img src="images/carousel/carousel2.png" alt="doyeon0430 이미지" />
+                    </div>
+                    <div class="carousel_slide">
+                        <img src="images/carousel/carousel3.png" alt="doyeon0430 이미지" />
+                    </div>
+
+                </div>
+                <div class="carousel_button_container">
+                    <button type="button" class="carousel_prev">
+                        <img src="./images/carousel/prev.png" alt="">
+                    </button>
+                    <button type="button" class="carousel_next">
+                        <img src="./images/carousel/next.png" alt="">
+                    </button>
+                </div>
+                <div class="carousel_pagination">
+                    <div class="carousel_circle"></div>
+                    <div class="carousel_circle"></div>
+                    <div class="carousel_circle"></div>
+
+                </div>
+            </div>
+
+
+x
+            <img src="./images/Group 195.png" alt="">
+
+            <div class="imgBox" style="text-align: center;background-color: #2C2C2C;">
+                <img src="./images//Group 196.png" alt="">
+
+                <div class="imgBox">
+                    <img src="./images/Group 194.png" alt="">
+
+
+                    <img src="/images/Group 193.png" alt="">
+
+                    <div id="footer"></div>
+        </main>
+    </div>
+    <script>
+        const swiper = document.querySelector('.carousel_wrapper');
+        const prevButtons = document.querySelectorAll('.carousel_prev');
+        const nextButtons = document.querySelectorAll('.carousel_next');
+        const bullets = document.querySelectorAll('.carousel_circle');
+
+        let currentSlide = 0;
+
+        function showSlide(slideIndex) {
+            swiper.style.transform = `translateX(-${slideIndex * 1400}px)`;
+            currentSlide = slideIndex;
+
+            bullets.forEach((bullet, index) => {
+                if (index === currentSlide) {
+                    bullet.classList.add('active');
+                } else {
+                    bullet.classList.remove('active');
+                }
+            });
+        }
+
+        prevButtons.forEach((prevButton) => {
+            prevButton.addEventListener('click', () => {
+                if (currentSlide > 0) {
+                    showSlide(currentSlide - 1);
+                }
+            });
+        });
+
+        nextButtons.forEach((nextButton) => {
+            nextButton.addEventListener('click', () => {
+                if (currentSlide < 2) { // Adjust this number based on the number of slides
+                    showSlide(currentSlide + 1);
+                }
+            });
+        });
+
+        bullets.forEach((bullet, index) => {
+            bullet.addEventListener('click', () => {
+                showSlide(index);
+            });
+        });
+
+        showSlide(0);
+    </script>
+    <script src="navbar.js" type="module"></script>
+    <script src="footer.js" type="module"></script>
+    <script type="module">
+        import { createNavbar } from './navbar.js';
+        import { createFooter } from './footer.js';
+
+        createNavbar();
+        createFooter();
+    </script>
+</body>
+
+</html>

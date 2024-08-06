@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Page</title>
+    <style>
+        html {
+            background-color: #2c2c2c;
+        }
+
+        h2 {
+            color: white;
+            margin-left: 1rem;
+        }
+
+        .container {
+            display: flex;
+            width: 100%;
+            position: relative;
+            margin: 0;
+            background-color: #2c2c2c;
+        }
+
+        .main {
+            display: block;
+            flex-grow: 1;
+            height: 100%;
+        }
+
+        .nav ul {
+            list-style-type: none;
+            padding-left: 0px;
+        }
+
+        .button {
+            background-color: #d9d9d9;
+        }
+
+        .profileImg {
+            /* Add your styles for the profile image here */
+        }
+
+        .profileEdit {
+            padding: 2rem;
+            color: #E0E0E0;
+            background-color: #5E5E5E;
+            position: relative;
+            left: 25%;
+            margin-top: 2rem;
+        }
+        .profileEdit>button{
+            border: none;
+            font-weight: 400;
+        }
+        .profileEdit>div {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .profileInput {
+            position: relative;
+            width: 100%;
+        }
+
+        .profileInput input {
+            width: 100%;
+            left: 0;
+        }
+
+        .container .nav ul li:hover {
+            background-color: #d9d9d9;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.4);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modalContent {
+            background-color: #fff;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 600px;
+        }
+
+        .modalClose {
+            color: #aaa;
+            position: relative;
+            right: 0;
+
+        }
+
+
+
+        .nav {
+            background-image: url("./images/Group200.png");
+            background-size: contain;
+            background-repeat: no-repeat;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .nav h3,
+        .nav ul {
+            position: relative;
+            width: 100%;
+            top: 25%;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .nav ul li span {
+            position: relative;
+            left: 30%;
+            font-weight: 300;
+        }
+
+        .nav ul li img {
+            position: relative;
+            display: inline-block;
+            left: 25%;
+        }
+
+        .nav h3 {
+            left: 25%;
+            padding: 0;
+        }
+
+        .button {
+            display: block;
+            padding: 1rem 2rem;
+            font-weight: 700;
+            position: relative;
+            left: 35rem;
+        }
+
+        .passwordEdit {
+            position: relative;
+            left: 25%;
+            margin-top: 2rem;
+            background-color: #5E5E5E;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            height: 450px;
+        }
+
+        .passwordEdit>div {
+            width: 50%;
+            padding: 1rem;
+        }
+
+        .passwordEdit>div input {
+            left: 0;
+            margin-top: 1rem;
+            width: 130%;
+            height: 40px;
+        }
+
+        .passwordEdit>button {
+            width: 90px;
+            height: 50px;
+            position: absolute;
+            bottom: 3rem;
+            right: 2rem;
+            bottom: 1rem;
+            background-color: #d9d9d9;
+            color: black;
+            border: none;
+            font-weight: 400;
+            
+        }
+
+        .main {
+            background-color: #2c2c2c;
+        }
+
+        .recentBox {
+            display: flex;
+            justify-content: space-between;
+            padding: 2rem;
+        }
+
+        .todoItem {
+            display: flex;
+            margin-bottom: 2rem;
+            justify-content: space-between;
+            width: 90%;
+            background-color: #5E5E5E;
+            padding: 1rem;
+            color: white;
+        }
+
+        .todoItem p button {
+            display: block;
+            padding: 0.5rem 2rem
+        }
+
+        .modal {
+
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .modalContent {
+            position: relative;
+            font-size: 16px;
+            font-weight: 600;
+            margin: 0 auto;
+            z-index: 1;
+
+
+            height: 100%;
+            overflow: auto;
+
+            background-color: #2C2C2C;
+            padding-top: 60px;
+            max-width: 1000px;
+        }
+
+        .modalContent label {
+            display: block;
+        }
+
+        .modalBox {
+            position: relative;
+
+            margin-top: 4rem;
+            display: flex;
+            justify-content: center;
+
+        }
+
+        .modalBox input {
+            width: 300%;
+            height: 50px;
+            margin-bottom: 3rem;
+        }
+
+        .profile-picture {
+            position: absolute;
+            left: 20%;
+        }
+
+        .select-button {
+            background-color: #D9D9D9;
+            color: black;
+            text-align: center;
+            padding: 10px 20px;
+            margin-top: 2rem;
+        }
+
+        .modalContent h2,
+        .modalContent p {
+            margin-left: 20%;
+        }
+
+        .modalContent button {
+            position: absolute;
+            right: 1rem;
+            padding: 1rem;
+        }
+        .todoUser{
+            font-size: 20px;
+        }
+        .profileInput input {
+            height: 30px;
+            margin-bottom: 2rem;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <nav class="nav">
+            <h3>마이 페이지</h3>
+            <ul>
+                <li onclick="setSelectedTab('info')">
+                    <img src="./images/jam-icons/outline & logos/home.png" alt="홈 아이콘"> <span>내 정보</span>
+                </li>
+                <li onclick="setSelectedTab('memorial')">
+                    <img src="./images/jam-icons/outline & logos/users.png" alt="유저 아이콘"> <span> 추모 공간</span>
+                </li>
+            </ul>
+        </nav>
+
+        <main class="main">
+            <div id="content"></div>
+        </main>
+
+        <div id="modal" class="modal">
+            <div class="modalContent">
+                <span class="modalClose" onclick="closeModal"><img src="./images/Vector 35.png" alt=""><span>
+                        <h2>추모공간 수정</h2>
+                        <p>추모 대상의 기본적인 정보를 입력해 주세요</p>
+                        <div class="modalBox">
+
+                            <div class="profile-picture">
+                                <img id="profileImg" src="images/Group120.png" alt="profile_pic">
+                                <input type="file" id="file-upload" style="display: none" accept="image/*"
+                                    onchange="onchangeImageUpload(event)">
+                                <label for="file-upload" class="select-button">선택</label>
+                            </div>
+                            <div>
+                                <div>
+                                    <label for="modalUser">이름</label>
+                                    <input id="modalUser" name="user" value="" oninput="handleTodoChange(event)">
+                                </div>
+                                <div>
+                                    <label for="modalDate">생년월일</label>
+                                    <input id="modalDate" name="date" type="text" value=""
+                                        oninput="handleTodoChange(event)">
+                                </div>
+                                <div>
+                                    <label for="modalDate">기일</label>
+                                    <input id="modalDeadDate" name="deadDate" type="text" value=""
+                                        oninput="handleTodoChange(event)">
+                                </div>
+                                <div>
+                                    <label for="modalContent">소개글</label>
+                                    <input id="modalContent" name="content" value="" oninput="handleTodoChange(event)">
+                                </div>
+                            </div>
+                        </div>
+                        <button onclick="updateTodo()">저장</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+      let name = "";
+        let email = "";
+        let error = "";
+        let selectedTab = "info";
+        let currentPassword = "";
+        let newPassword = "";
+        let confirmNewPassword = "";
+        let todoList = [];
+        let newTodo = "";
+        let isModalOpen = false;
+        let currentTodo = null;
+
+        const navRef = document.querySelector('.nav');
+        const mainRef = document.querySelector('.main');
+        const contentRef = document.getElementById('content');
+        const modalRef = document.getElementById('modal');
+        const modalUserRef = document.getElementById('modalUser');
+        const modalDateRef = document.getElementById('modalDate');
+        const modalContentRef = document.getElementById('modalContent');
+
+        const ImageUpload = () => {
+            let uploadImgUrl = "images/Group120.png";
+
+            const onchangeImageUpload = (e) => {
+                const { files } = e.target;
+                const uploadFile = files[0];
+                const reader = new FileReader();
+                reader.readAsDataURL(uploadFile);
+                reader.onloadend = () => {
+                    uploadImgUrl = reader.result;
+                    document.getElementById('profileImg').src = uploadImgUrl;
+                };
+            };
+
+            return `
+                <label for="upload" style="cursor: pointer;">
+                    <img id="profileImg" src="${uploadImgUrl}" alt="img" style="width: 150px; height: 150px; object-fit: cover; border-radius: 50%;"></img>
+                </label>
+                <input id="upload" type="file" accept="image/*" onchange="(${onchangeImageUpload.toString()})(event)" style="display: none;" />
+            `;
+        };
+
+        const fetchUser = async () => {
+            const token = localStorage.getItem("token");
+            if (token) {
+                try {
+                    const response = await fetch("http://localhost:8080/login", {
+                        headers: {
+                            Authorization: `Bearer ${token}`,
+                        },
+                    });
+                    const data = await response.json();
+                    name = data.username;
+                    email = data.email;
+                    renderContent();
+                } catch (err) {
+                    error = "Unauthorized";
+                }
+            }
+        };
+
+        todoList = [
+            { id: 1, user: "User1", date: "2023-08-01", deadDate: "2023-08-01", content: "소개글" },
+            { id: 2, user: "User2", date: "2023-08-02", deadDate: "2023-08-01", content: "소개글" },
+            { id: 3, user: "User3", date: "2023-08-03", deadDate: "2023-08-01", content: "소개글" }
+        ];
+
+        fetchUser();
+
+        const img = new Image();
+        img.src = "images/Group200.png";
+        img.onload = () => {
+            const navWidth = img.width;
+            const navHeight = img.height;
+            navRef.style.width = `${navWidth}px`;
+            navRef.style.height = `${navHeight}px`;
+
+            const mainWidth = window.innerWidth - navWidth;
+            mainRef.style.width = `${mainWidth}px`;
+            mainRef.style.height = `${navHeight}px`;
+        };
+
+        const profileEdit = async (e) => {
+            e.preventDefault();
+            const token = localStorage.getItem("token");
+            try {
+                await fetch("/api/me", {
+                    method: "PUT",
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${token}`,
+                    },
+                    body: JSON.stringify({ username: name, email, uploadImgUrl }),
+                });
+                alert("Profile updated successfully!");
+            } catch (err) {
+                error = "Failed to update profile";
+            }
+        };
+
+        const changePassword = async (e) => {
+            e.preventDefault();
+            if (newPassword !== confirmNewPassword) {
+                error = "New passwords do not match";
+                renderContent();
+                return;
+            }
+
+            const token = localStorage.getItem("token");
+            try {
+                await fetch("/api/change-password", {
+                    method: "PUT",
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${token}`,
+                    },
+                    body: JSON.stringify({ currentPassword, newPassword }),
+                });
+                error = "";
+                alert("Password changed successfully!");
+            } catch (err) {
+                error = "Failed to change password";
+            }
+        };
+
+        const addTodo = async () => {
+            const newTodoItem = {
+                title: newTodo,
+                user: name,
+                date: new Date().toISOString().split("T")[0],
+            };
+
+            try {
+                const response = await fetch("/api/todos", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(newTodoItem),
+                });
+                const data = await response.json();
+                todoList.push(data);
+                newTodo = "";
+                renderContent();
+            } catch (err) {
+                error = "Failed to add todo";
+                renderContent();
+            }
+        };
+
+        const updateTodo = async () => {
+            try {
+                await fetch(`/api/todos/${currentTodo.id}`, {
+                    method: "PUT",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(currentTodo),
+                });
+                todoList = todoList.map((todo) => (todo.id === currentTodo.id ? currentTodo : todo));
+                closeModal();
+                renderContent();
+            } catch (err) {
+                error = "Failed to update todo";
+                renderContent();
+            }
+        };
+
+        const deleteTodo = async (id) => {
+            try {
+                await fetch(`/api/todos/${id}`, {
+                    method: "DELETE",
+                });
+                todoList = todoList.filter((todo) => todo.id !== id);
+                renderContent();
+            } catch (err) {
+                error = "Failed to delete todo";
+                renderContent();
+            }
+        };
+
+        const openModal = (todo) => {
+            currentTodo = { ...todo };
+            isModalOpen = true;
+            modalUserRef.value = currentTodo.user;
+            modalDateRef.value = currentTodo.date;
+            modalContentRef.value = currentTodo.content;
+
+            modalRef.style.display = "flex";
+        };
+
+        const closeModal = () => {
+            isModalOpen = false;
+            currentTodo = null;
+            modalRef.style.display = "none";
+        };
+
+        const handleTodoChange = (e) => {
+            const { name, value } = e.target;
+            currentTodo = { ...currentTodo, [name]: value };
+        };
+
+        const setSelectedTab = (tab) => {
+            selectedTab = tab;
+            renderContent();
+        };
+
+        const renderContent = () => {
+            if (selectedTab === "info") {
+                contentRef.innerHTML = `
+                    <div style="width: 70%">
+                        <div class="profileEdit">
+                            <h2>프로필 정보 설정</h2>
+                            <div>
+                                <div>
+                                    ${ImageUpload()}
+                                </div>
+                                <div class="profileInput">
+                                    <label for="name">이름</label>
+                                    <input size="60" id="name" value="${name}" oninput="name = this.value">
+                                    <label for="email">이메일</label>
+                                    <input type="email" id="email" value="${email}" oninput="email = this.value">
+                                </div>
+                            </div>
+                            <button onclick="profileEdit(event)" class="button" style="color: black;">
+                                저장
+                            </button>
+                        </div>
+                        <div class="passwordEdit">
+                            <div>
+                                <label for="currentPassword">현재 비밀번호</label>
+                                <input size="10" type="password" id="currentPassword" value="${currentPassword}" oninput="currentPassword = this.value">
+                            </div>
+                            <div>
+                                <label for="newPassword">새로운 비밀번호</label>
+                                <input type="password" id="newPassword" value="${newPassword}" oninput="newPassword = this.value">
+                            </div>
+                            <div>
+                                <label for="confirmNewPassword">비밀번호 재입력</label>
+                                <input type="password" id="confirmNewPassword" value="${confirmNewPassword}" oninput="confirmNewPassword = this.value">
+                            </div>
+                            <button onclick="changePassword(event)">변경</button>
+                        </div>
+                    </div>
+                `;
+            } else if (selectedTab === "memorial") {
+                contentRef.innerHTML = `
+                    <div>
+                        <h2>최근 들어간 공간</h2>
+                        <ul class="recentBox">
+                            <li><img src="./images/recent/recent1.png" alt=""></li>
+                            <li><img src="./images/recent/recent2.png" alt=""></li>
+                            <li><img src="./images/recent/recent3.png" alt=""></li>
+                            <li><img src="./images/recent/recent4.png" alt=""></li>
+                        </ul>
+                        <div>
+                            <ul>
+                                ${todoList.map(todo => `
+                                    
+                                    <li class="todoItem"key="${todo.id}">
+                                        <p class="todoUser">${todo.user}</p>
+                                        <p>${todo.date}</p>
+                                        <p> ${todo.deadDate}</p>
+
+                                        <p>
+                                        <button onclick='openModal(${JSON.stringify(todo)})'>수정</button>
+                                        <button onclick="deleteTodo(${todo.id})">삭제</button>
+                                        </p>
+                                    </li>
+                                `).join('')}
+                            </ul>
+                       
+                            ${error ? `<p class="error">${error}</p>` : ''}
+                        </div>
+                    </div>
+                `;
+            }
+        };
+
+        renderContent();
+    </script>
+</body>
+
+</html>
